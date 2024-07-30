@@ -11,6 +11,14 @@ namespace HelloWorld
         static void Main(string[] args)
         {
             Console.WriteLine("Hello world");
+
+            float myFloat = 0.01f;
+            double myDouble = 0.002;
+            decimal myDecimal = 0.1m;
+            string myString = "AAAAA";
+            bool myBoolean = false;
+
+            Console.WriteLine(myFloat.GetType());
         }
     }
     

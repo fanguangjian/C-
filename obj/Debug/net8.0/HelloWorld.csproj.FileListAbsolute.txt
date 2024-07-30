@@ -12,3 +12,4 @@
 /Users/fangj/code-dotnet/HelloWorld/obj/Debug/net8.0/HelloWorld.pdb
 /Users/fangj/code-dotnet/HelloWorld/obj/Debug/net8.0/HelloWorld.genruntimeconfig.cache
 /Users/fangj/code-dotnet/HelloWorld/obj/Debug/net8.0/ref/HelloWorld.dll
+/Users/fangj/code-dotnet/HelloWorld/obj/Debug/net8.0/HelloWorld.sourcelink.json
