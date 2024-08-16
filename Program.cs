@@ -4,46 +4,32 @@
 // Console.WriteLine("Helo C#");
 // Console.WriteLine(args[0]);
 
+using HelloWorld.Models;
+
 
 namespace HelloWorld
-{
+{  
+   
     internal static class Program {
         static void Main(string[] args)
         {
-            // Console.WriteLine("Hello world");
 
-            // float myFloat = 0.01f;
-            // double myDouble = 0.002;
-            // decimal myDecimal = 0.1m;
-            // string myString = "AAAAA";
-            // bool myBoolean = false;
+            Computer myComputer = new Computer(){
+                Motherboard = "Z333",
+                HasWifi = true,
+                HasLTE = false,
+                ReleasesDate = DateTime.Now,
+                Price = 888.89m,
+                VideoCard = "RRR 556"
 
-            // Console.WriteLine(myFloat.GetType());
+            };
+            Console.WriteLine(myComputer.Price);
+            // Console.WriteLine("AAA:");
 
-            int[] intsToCompress = new int[] {10,11,11,22,33,12,14};
-            int totalValue = 0;
-            DateTime startTime = DateTime.Now;
-
-            for (int i = 0; i < intsToCompress.Length; i++)
-            {
-                // Console.WriteLine(intsToCompress[i]);
-                totalValue += intsToCompress[i];
-            } 
-            Console.WriteLine( (DateTime.Now - startTime).TotalSeconds);
-            Console.WriteLine(totalValue);
-
-            // foreach (var item in intsToCompress)
-            // {
-            //     Console.WriteLine(item);
-            // }
+            // string connectionString = "Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=true;"
+            // string connectionString = "Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=false;User Id= SA;Password=SQLfantuan1";
             
-            startTime = DateTime.Now;
-            foreach (int item in intsToCompress)  // foreach is faster than for loop
-            {
-                // Console.WriteLine(item);
-                totalValue += item;
-            }
-            Console.WriteLine( (DateTime.Now - startTime).TotalSeconds);
+            // IDbconnection dbConnection = new SqlConnection(connectionString);
 
 
 
