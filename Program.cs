@@ -17,15 +17,15 @@ namespace HelloWorld
         static void Main(string[] args)
         {
 
-            // Computer myComputer = new Computer(){
-            //     Motherboard = "Z333",
-            //     HasWifi = true,
-            //     HasLTE = false,
-            //     ReleasesDate = DateTime.Now,
-            //     Price = 888.89m,
-            //     VideoCard = "RRR 556"
+            Computer myComputer = new Computer(){
+                Motherboard = "Z334",
+                HasWifi = true,
+                HasLTE = false,
+                ReleaseDate = DateTime.Now,
+                Price = 888.89m,
+                VideoCard = "RRR 5577"
 
-            // };
+            };
             // Console.WriteLine(myComputer.Price);
             // Console.WriteLine("AAA:");
 
@@ -40,7 +40,40 @@ namespace HelloWorld
 
             Console.WriteLine(rightNow);
 
+            string sql = @"INSERT INTO TutorialAppSchema.Computer (
+                Motherboard,
+                HasWifi,
+                HasLTE,
+                ReleaseDate,
+                Price,
+                VideoCard
+            ) VALUES (
+                  '" + myComputer.Motherboard 
+                  + "','" + myComputer.HasWifi 
+                  + "','" + myComputer.HasLTE
+                  + "','" + myComputer.ReleaseDate
+                  + "','" + myComputer.Price
+                  + "','" + myComputer.VideoCard
 
+            +"')";
+
+            // int res = dbConnection.Execute(sql);
+            // Console.WriteLine(res);
+
+            string sqlSelect = @"SELECT TOP(100)* FROM TutorialAppSchema.Computer";
+            // List<Computer> computers = dbConnection.Query<Computer>(sqlSelect).ToList();
+            IEnumerable<Computer> computers = dbConnection.Query<Computer>(sqlSelect).ToList();
+
+            foreach (var com in computers)
+            {
+                // Console.WriteLine(com.Motherboard);
+                Console.WriteLine(
+                  "'" + com.Motherboard + "','" + com.HasWifi + "'"
+                );
+
+            }
+
+            // Console.WriteLine(computers);
 
 
         
