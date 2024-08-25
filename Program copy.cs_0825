@@ -9,7 +9,6 @@ using Dapper;
 using HelloWorld.Data;
 using HelloWorld.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Design;
 
 
 namespace HelloWorld
@@ -25,7 +24,7 @@ namespace HelloWorld
                 HasLTE = false,
                 ReleaseDate = DateTime.Now,
                 Price = 888.89m,
-                VideoCard = "RRR 557711"
+                VideoCard = "RRR 5577"
 
             };
             // Console.WriteLine(myComputer.Price);
@@ -37,17 +36,14 @@ namespace HelloWorld
             // IDbConnection dbConnection = new SqlConnection(connectionString);
 
             DataContextDapper dapper = new DataContextDapper();
-            DataContextEF entityFramework = new DataContextEF();
 
             string sqlCommand = "SELECT GETDATE()";
 
             // DateTime rightNow = dbConnection.QuerySingle<DateTime>(sqlCommand);
-            // DateTime rightNow = dapper.LoadDataSingle<DateTime>(sqlCommand);
+            DateTime rightNow = dapper.LoadDataSingle<DateTime>(sqlCommand);
 
 
-            // Console.WriteLine(rightNow);
-            entityFramework.Add(myComputer);  // Instead of the following SQL
-            entityFramework.SaveChanges();
+            Console.WriteLine(rightNow);
 
             string sql = @"INSERT INTO TutorialAppSchema.Computer (
                 Motherboard,
@@ -68,22 +64,18 @@ namespace HelloWorld
 
             // int res = dbConnection.Execute(sql);
             // int res = dapper.ExecuteSqlWithRowCount(sql);
-            // bool res = dapper.ExecuteSql(sql);
+            bool res = dapper.ExecuteSql(sql);
 
 
-            // Console.WriteLine(res);
+            Console.WriteLine(res);
 
             string sqlSelect = @"SELECT TOP(100)* FROM TutorialAppSchema.Computer";
             // List<Computer> computers = dbConnection.Query<Computer>(sqlSelect).ToList();
             // IEnumerable<Computer> computers = dbConnection.Query<Computer>(sqlSelect).ToList();
             IEnumerable<Computer> computers = dapper.LoadData<Computer>(sqlSelect).ToList();
-            IEnumerable<Computer>? computersEf = entityFramework.Computer?.ToList<Computer>();
 
 
-
-            // foreach (var com in computers)
-            foreach (var com in computersEf)
-
+            foreach (var com in computers)
             {
                 // Console.WriteLine(com.Motherboard);
                 Console.WriteLine(
