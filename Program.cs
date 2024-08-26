@@ -10,6 +10,7 @@ using HelloWorld.Data;
 using HelloWorld.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 
 namespace HelloWorld
@@ -36,8 +37,13 @@ namespace HelloWorld
             
             // IDbConnection dbConnection = new SqlConnection(connectionString);
 
-            DataContextDapper dapper = new DataContextDapper();
-            DataContextEF entityFramework = new DataContextEF();
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+            // DataContextDapper dapper = new DataContextDapper();
+            // DataContextEF entityFramework = new DataContextEF();
+
+            DataContextDapper dapper = new DataContextDapper(config);
+            DataContextEF entityFramework = new DataContextEF(config);
 
             string sqlCommand = "SELECT GETDATE()";
 
