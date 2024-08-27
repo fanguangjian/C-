@@ -52,8 +52,8 @@ namespace HelloWorld
 
 
             // Console.WriteLine(rightNow);
-            entityFramework.Add(myComputer);  // Instead of the following SQL
-            entityFramework.SaveChanges();
+            // entityFramework.Add(myComputer);  // Instead of the following SQL
+            // entityFramework.SaveChanges();
 
             string sql = @"INSERT INTO TutorialAppSchema.Computer (
                 Motherboard,
@@ -99,9 +99,18 @@ namespace HelloWorld
             }
 
             // Console.WriteLine(computers);
+            // File.WriteAllText("log.txt",sql);
+            
+            //  will write with no break
+            // using StreamWriter openFile = new("log.txt", append: true);
+            // openFile.WriteLine("\n" + sql + "\n" );
+            // openFile.Close();
+
+            string fileText = File.ReadAllText("log.txt");
+
+            Console.WriteLine(fileText);
 
 
-        
         }
     }
     

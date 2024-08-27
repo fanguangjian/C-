@@ -1,0 +1,33 @@
+
+INSERT INTO TutorialAppSchema.Computer (
+                Motherboard,
+                HasWifi,
+                HasLTE,
+                ReleaseDate,
+                Price,
+                VideoCard
+            ) VALUES (
+                  'Z334','True','False','8/27/2024 10:11:16 PM','888.89','RRR 557711')
+
+
+INSERT INTO TutorialAppSchema.Computer (
+                Motherboard,
+                HasWifi,
+                HasLTE,
+                ReleaseDate,
+                Price,
+                VideoCard
+            ) VALUES (
+                  'Z334','True','False','8/27/2024 10:11:21 PM','888.89','RRR 557711')
+
+
+INSERT INTO TutorialAppSchema.Computer (
+                Motherboard,
+                HasWifi,
+                HasLTE,
+                ReleaseDate,
+                Price,
+                VideoCard
+            ) VALUES (
+                  'Z334','True','False','8/27/2024 10:13:48 PM','888.89','RRR 557711')
+
