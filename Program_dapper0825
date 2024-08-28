@@ -14,7 +14,8 @@ using Microsoft.Data.SqlClient;
 namespace HelloWorld
 {  
    
-    internal static class Program {
+    internal static class Program
+ {
         static void Main(string[] args)
         {
 
