@@ -33,7 +33,7 @@ namespace HelloWorld.Data
             return dbConnection.QuerySingle<T>(sql);
         }   
 
-        public bool ExecuteSql(string sql)
+        public bool ExecuteSQL(string sql)
         {
             IDbConnection dbConnection = new SqlConnection(_connectionString);
             // IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));

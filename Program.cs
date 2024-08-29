@@ -31,20 +31,41 @@ namespace HelloWorld
 
             // Console.WriteLine(computerJson);
             JsonSerializerOptions options = new JsonSerializerOptions(){
-                // PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseUpper
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                // PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseUpper
 
             };
             // class System.Text.Json.JsonSerializer
             // IEnumerable<Computer>? computers = JsonSerializer.Deserialize<IEnumerable<Computer>>(computerJson, options);
             // package Newtonsoft Json  
-            IEnumerable<Computer>? computers = JsonConvert.DeserializeObject<IEnumerable<Computer>>(computerJson);
+            // IEnumerable<Computer>? computers = JsonConvert.DeserializeObject<IEnumerable<Computer>>(computerJson);
+            IEnumerable<Computer>? computersNewtonSoft = JsonConvert.DeserializeObject<IEnumerable<Computer>>(computerJson);
+
+            IEnumerable<Computer>? computersSystem = System.Text.Json.JsonSerializer.Deserialize<IEnumerable<Computer>>(computerJson , options);
    
 
-            if(computers != null){
-                foreach (Computer com in computers)
+            if(computersNewtonSoft != null){
+                foreach (Computer computer in computersNewtonSoft)
                 {
                     // Console.WriteLine(com.Motherboard);
+                     string sql = @"INSERT INTO TutorialAppSchema.Computer (
+                        Motherboard,
+                        HasWifi,
+                        HasLTE,
+                        ReleaseDate,
+                        Price,
+                        VideoCard
+                    ) VALUES ('" + EscapeSingleQuote(computer.Motherboard)
+                            + "','" + computer.HasWifi
+                            + "','" + computer.HasLTE
+                            + "','" + computer.ReleaseDate?.ToString("yyyy-MM-dd")
+                            + "','" + computer.Price
+                            // + "','" + computer.Price.ToString("0.00", CultureInfo.InvariantCulture)
+
+                            + "','" + EscapeSingleQuote(computer.VideoCard)
+                    + "')";
+                    
+                    dapper.ExecuteSQL(sql);
                 }
             }
 
@@ -54,12 +75,17 @@ namespace HelloWorld
 
             };
 
-            string computerCopNewtonsoft = JsonConvert.SerializeObject(computers, settings);
-            File.WriteAllText("computerCopNewtonsoft.txt", computerCopNewtonsoft);
+            // string computerCopNewtonsoft = JsonConvert.SerializeObject(computers, settings);
+            // File.WriteAllText("computerCopNewtonsoft.txt", computerCopNewtonsoft);
 
             
-            string computerCopySystem = System.Text.Json.JsonSerializer.Serialize(computers, options);
-            File.WriteAllText("computerCopySystem.txt", computerCopySystem);
+            // string computerCopySystem = System.Text.Json.JsonSerializer.Serialize(computers, options);
+            // File.WriteAllText("computerCopySystem.txt", computerCopySystem);
+        }
+
+        static string EscapeSingleQuote(string input){
+            string output = input.Replace("'", "''");
+            return output;
         }
     }
     
