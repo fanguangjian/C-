@@ -1,7 +1,7 @@
 <!--
  * @Author: G.F
  * @Date: 2024-07-30 23:10:19
- * @LastEditTime: 2024-08-28 23:35:15
+ * @LastEditTime: 2024-09-03 23:07:19
  * @LastEditors: your name
  * @Description: 
  * @FilePath: /HelloWorld/README.md
@@ -18,6 +18,7 @@ dotnet add package microsoft.entityframeworkcore.sqlserver
 dotnet add package microsoft.extensions.configuration.JSON
 dotnet restore
 dotnet add package Newtonsoft.Json
+dotnet add package AutoMapper
 
 
 * Entity Framework Vss Dapper
