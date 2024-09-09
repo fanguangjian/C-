@@ -6,6 +6,7 @@
 
 using System.Data;
 using System.Text.Json;
+using AutoMapper;
 using Dapper;
 using HelloWorld.Data;
 using HelloWorld.Models;
@@ -27,7 +28,20 @@ namespace HelloWorld
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             DataContextDapper dapper = new DataContextDapper(config);
 
-            string computerJson = File.ReadAllText("Computers.json");
+            string computerJson = File.ReadAllText("ComputersSnake.json");
+
+            Mapper mapper = new Mapper(new MapperConfiguration((cfg) => {
+                cfg.CreateMap<ComputerSnake, Computer>()
+                    .ForMember(destination => destination.ComputerId, options => options.MapFrom(source => source.computer_id))
+                    .ForMember(destination => destination.Motherboard, options => options.MapFrom(source => source.motherboard))
+                    .ForMember(destination => destination.CPUCores, options => options.MapFrom(source => source.cpu_cores))
+                    .ForMember(destination => destination.HasWifi, options => options.MapFrom(source => source.has_wifi))
+                    .ForMember(destination => destination.HasLTE, options => options.MapFrom(source => source.has_lte))
+                    .ForMember(destination => destination.VideoCard, options => options.MapFrom(source => source.video_card))
+                    .ForMember(destination => destination.ReleaseDate, options => options.MapFrom(source => source.release_date))
+                    .ForMember(destination => destination.Price, options => options.MapFrom(source => source.price * .8m));
+
+            }));
 
             // Console.WriteLine(computerJson);
             JsonSerializerOptions options = new JsonSerializerOptions(){
@@ -39,48 +53,28 @@ namespace HelloWorld
             // IEnumerable<Computer>? computers = JsonSerializer.Deserialize<IEnumerable<Computer>>(computerJson, options);
             // package Newtonsoft Json  
             // IEnumerable<Computer>? computers = JsonConvert.DeserializeObject<IEnumerable<Computer>>(computerJson);
-            IEnumerable<Computer>? computersNewtonSoft = JsonConvert.DeserializeObject<IEnumerable<Computer>>(computerJson);
+            // IEnumerable<Computer>? computersNewtonSoft = JsonConvert.DeserializeObject<IEnumerable<Computer>>(computerJson);
 
-            IEnumerable<Computer>? computersSystem = System.Text.Json.JsonSerializer.Deserialize<IEnumerable<Computer>>(computerJson , options);
+            // IEnumerable<Computer>? computersSystem = System.Text.Json.JsonSerializer.Deserialize<IEnumerable<Computer>>(computerJson , options);
+            IEnumerable<ComputerSnake>? computersSystem = System.Text.Json.JsonSerializer.Deserialize<IEnumerable<ComputerSnake>>(computerJson);
+
    
 
-            if(computersNewtonSoft != null){
-                foreach (Computer computer in computersNewtonSoft)
-                {
-                    // Console.WriteLine(com.Motherboard);
-                     string sql = @"INSERT INTO TutorialAppSchema.Computer (
-                        Motherboard,
-                        HasWifi,
-                        HasLTE,
-                        ReleaseDate,
-                        Price,
-                        VideoCard
-                    ) VALUES ('" + EscapeSingleQuote(computer.Motherboard)
-                            + "','" + computer.HasWifi
-                            + "','" + computer.HasLTE
-                            + "','" + computer.ReleaseDate?.ToString("yyyy-MM-dd")
-                            + "','" + computer.Price
-                            // + "','" + computer.Price.ToString("0.00", CultureInfo.InvariantCulture)
+            if(computersSystem != null){
+                IEnumerable<Computer> computerResult = mapper.Map<IEnumerable<Computer>>(computersSystem);
+                Console.WriteLine("Automapper Count: " +  computerResult.Count());
+                // foreach (Computer computer in computerResult)
+                // {
+                //     Console.WriteLine(computer.Motherboard);
+                // } 
 
-                            + "','" + EscapeSingleQuote(computer.VideoCard)
-                    + "')";
-                    
-                    dapper.ExecuteSQL(sql);
-                }
             }
 
             JsonSerializerSettings settings = new JsonSerializerSettings(){
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
       
 
-            };
-
-            // string computerCopNewtonsoft = JsonConvert.SerializeObject(computers, settings);
-            // File.WriteAllText("computerCopNewtonsoft.txt", computerCopNewtonsoft);
-
-            
-            // string computerCopySystem = System.Text.Json.JsonSerializer.Serialize(computers, options);
-            // File.WriteAllText("computerCopySystem.txt", computerCopySystem);
+            };        
         }
 
         static string EscapeSingleQuote(string input){

@@ -1,7 +1,7 @@
 <!--
  * @Author: G.F
  * @Date: 2024-07-30 23:10:19
- * @LastEditTime: 2024-09-03 23:07:19
+ * @LastEditTime: 2024-09-09 21:46:42
  * @LastEditors: your name
  * @Description: 
  * @FilePath: /HelloWorld/README.md
@@ -23,3 +23,6 @@ dotnet add package AutoMapper
 
 * Entity Framework Vss Dapper
 Entity, no necessary to write SQL
+
+camelCase 
+sanke_case
